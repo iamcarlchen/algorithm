@@ -120,13 +120,104 @@
 
         return maxLen;
       };
-      console.log(lengthOfLongestSubstring("tmmzuxt"));
-      console.log(lengthOfLongestSubstring("dvdf"));
-      console.log(lengthOfLongestSubstring("au"));
-      console.log(lengthOfLongestSubstring(" "));
-      console.log(lengthOfLongestSubstring("abcabcbb"));
-      console.log(lengthOfLongestSubstring("bbbbb"));
-      console.log(lengthOfLongestSubstring("pwwkew"));
+      //   console.log(lengthOfLongestSubstring("tmmzuxt"));
+      //   console.log(lengthOfLongestSubstring("dvdf"));
+      //   console.log(lengthOfLongestSubstring("au"));
+      //   console.log(lengthOfLongestSubstring(" "));
+      //   console.log(lengthOfLongestSubstring("abcabcbb"));
+      //   console.log(lengthOfLongestSubstring("bbbbb"));
+      //   console.log(lengthOfLongestSubstring("pwwkew"));
+
+      /**
+       * @param {number} x
+       * @return {boolean}
+       */
+      var isPalindrome = function (x) {
+        if (x < 0) {
+          return false;
+        }
+        if (x < 10) {
+          return true;
+        }
+
+        if (x % 10 == 0) {
+          return false;
+        }
+
+        var revertNum = 0;
+        while (x > revertNum) {
+          //   debugger;
+          revertNum = 10 * revertNum + (x % 10);
+          x = parseInt(x / 10);
+
+          console.log(x);
+          console.log(revertNum);
+        }
+
+        return (
+          x == revertNum || (revertNum >= 10 && parseInt(revertNum / 10) == x)
+        );
+      };
+      console.log(isPalindrome(21120));
+
+      /**
+       * @param {string[]} strs
+       * @return {string}
+       */
+      var longestCommonPrefix = function (strs) {
+        debugger;
+        var num = strs.length;
+        if (num == 0) {
+          return "";
+        }
+        if (num == 1) {
+          return strs[0];
+        }
+
+        //寻找最短字符串的长度
+        var minLength = -1;
+        for (var i in strs) {
+          if (minLength < 0) {
+            minLength = strs[i].length;
+          } else {
+            minLength = Math.min(minLength, strs[i].length);
+          }
+        }
+
+        //是否公共字符
+        var isCommonPrefix = function (len) {
+          var s = strs[0].substr(0, len);
+          for (var i = 1; i < strs.length; i++) {
+            if (strs[i].substr(0, len) != s) {
+              return false;
+            }
+          }
+          return true;
+        };
+
+        //二分法查找
+        var low = 0;
+        var hight = minLength;
+        while (low < hight) {
+          var tmp = parseInt((hight - low) / 2);
+          if (tmp == 0) {
+            tmp = 1;
+          }
+          var mid = tmp + low;
+
+          if (isCommonPrefix(mid)) {
+            low = mid;
+          } else {
+            hight = mid - 1;
+          }
+        }
+
+        return strs[0].substr(0, low);
+      };
+
+      console.log(
+        longestCommonPrefix(["flower", "flower", "flower", "flower"])
+      );
     </script>
   </body>
 </html>
