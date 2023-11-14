@@ -267,7 +267,6 @@
        * @return {number}
        */
       var lengthOfLastWord = function (s) {
-        debugger;
         var len = s.length;
 
         if (len == 0) {
@@ -293,6 +292,33 @@
         return wl;
       };
       console.log(lengthOfLastWord("Hello World"));
+
+      /**
+       * @param {string} a
+       * @param {string} b
+       * @return {string}
+       */
+      var addBinary = function (a, b) {
+        var r = [];
+        // debugger;
+
+        var n = Math.max(a.length, b.length);
+        var carry = 0;
+        for (var i = 0; i < n; i++) {
+          carry += i < a.length ? a.charAt(a.length - 1 - i) - "0" : 0;
+          carry += i < b.length ? b.charAt(b.length - 1 - i) - "0" : 0;
+          r.push(carry % 2);
+
+          carry = parseInt(carry / 2);
+        }
+        if (carry > 0) {
+          r.push(1);
+        }
+
+        console.log(r);
+        return r.reverse().join("");
+      };
+      addBinary("1010", "1011");
     </script>
   </body>
 </html>
