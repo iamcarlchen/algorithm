@@ -319,6 +319,46 @@
         return r.reverse().join("");
       };
       addBinary("1010", "1011");
+
+      /**
+       * @param {string} s
+       * @return {number}
+       */
+      var romanToInt = function (s) {
+        var sw = function (c) {
+          if (c == "I") {
+            return 1;
+          } else if (c == "V") {
+            return 5;
+          } else if (c == "X") {
+            return 10;
+          } else if (c == "L") {
+            return 50;
+          } else if (c == "C") {
+            return 100;
+          } else if (c == "D") {
+            return 500;
+          } else if (c == "M") {
+            return 1000;
+          }
+        };
+        debugger;
+        var n = 0;
+        var len = s.length;
+        for (var i = 0; i < len; i++) {
+          var v = sw(s.charAt(i));
+          if (i + 1 < len) {
+            var v2 = sw(s.charAt(i + 1));
+            if (v < v2) {
+              v = -v;
+            }
+          }
+
+          n += v;
+        }
+        return n;
+      };
+      console.log(romanToInt("III"));
     </script>
   </body>
 </html>
