@@ -485,20 +485,20 @@
     };
 
     /**
- * Definition for a binary tree node.
- * function TreeNode(val, left, right) {
- *     this.val = (val===undefined ? 0 : val)
- *     this.left = (left===undefined ? null : left)
- *     this.right = (right===undefined ? null : right)
- * }
- */
-/**
- * @param {TreeNode} root
- * @return {number}
- */
-var maxDepth = function (root) {
+     * Definition for a binary tree node.
+     * function TreeNode(val, left, right) {
+     *     this.val = (val===undefined ? 0 : val)
+     *     this.left = (left===undefined ? null : left)
+     *     this.right = (right===undefined ? null : right)
+     * }
+     */
+    /**
+     * @param {TreeNode} root
+     * @return {number}
+     */
+    var maxDepth = function (root) {
 
-    var depth = function (node, length) {
+      var depth = function (node, length) {
         if (node == null) {
               return length - 1;
         }
@@ -506,10 +506,10 @@ var maxDepth = function (root) {
             return length;
         }
         return Math.max(depth(node.left, length + 1), depth(node.right, length + 1));
-    }
+      }
 
-    return depth(root, 1);
-};
+      return depth(root, 1);
+  };
     </script>
   </body>
 </html>
