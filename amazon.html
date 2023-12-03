@@ -27,6 +27,51 @@ var minimumOperations = function (nums) {
 
     return operations;
 };
+
+      /**
+ * @param {string} s
+ * @param {number[][]} queries
+ * @return {number[]}
+ */
+var platesBetweenCandles = function (s, queries) {
+    if (queries == null) {
+        return null;
+    }
+
+    var A = [];
+    for (var i = 0; i < s.length; i++) {
+        if (s[i] == '|') {
+            A.push(i);
+        }
+    }
+
+    var binarySearch = function (arr, d, lower) {
+        var left = 0;
+        var right = arr.length;
+        while (left <= right) {
+            var mid = (right - left) / 2;
+            if (d < arr[mid]) {
+                right = mid;
+            } else if (d > arr[mid]) {
+                left = mid;
+            } else {
+                return mid;
+            }
+        }
+
+        return lower ? right : left;
+    }
+
+    var result = [];
+    for (var q = 0; q < queries.length; q++) {
+        var i = binarySearch(A, queries[q][0], true);
+        var j = binarySearch(A, queries[q][1], false);
+
+        result.push(i < j ? ((A[j] - A[i]) - (j - i)) : 0);
+    }
+
+    return result;
+};
     </script>
   </body>
 </html>
