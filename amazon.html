@@ -154,8 +154,41 @@ var reorganizeString = function (s) {
 
     return s.join('');
 };
-console.log(reorganizeString("aab"))
-console.log(reorganizeString("aabaaaaaa"))
+// console.log(reorganizeString("aab"))
+// console.log(reorganizeString("aabaaaaaa"));
+
+
+/**
+ * @param {string} str1
+ * @param {string} str2
+ * @return {boolean}
+ */
+var canMakeSubsequence = function (str1, str2) {
+    var len1 = str1.length;
+    var len2 = str2.length;
+
+    if (len2 > len1) {
+        return false;
+    }
+
+    var idx = 0;
+    for (var i = 0; i < len2 - 1; i++) {
+        var c = str2.charAt(i);
+        var t = (c == 'a') ? 'z' : String.fromCharCode(c.charCodeAt() - 1);
+
+        while (idx < len1 && (str1.charAt(idx) != c && str1.charAt(idx) != t)) {
+            idx++;
+        }
+
+        if (idx >= len1) {
+            return false;
+        }
+    }
+
+    return true;
+};
+console.log(canMakeSubsequence("ab","d"));
+
     </script>
   </body>
 </html>
