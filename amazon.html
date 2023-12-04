@@ -172,7 +172,7 @@ var canMakeSubsequence = function (str1, str2) {
     }
 
     var idx = 0;
-    for (var i = 0; i < len2 - 1; i++) {
+    for (var i = 0; i <= len2 - 1; i++) {
         var c = str2.charAt(i);
         var t = (c == 'a') ? 'z' : String.fromCharCode(c.charCodeAt() - 1);
 
@@ -183,11 +183,14 @@ var canMakeSubsequence = function (str1, str2) {
         if (idx >= len1) {
             return false;
         }
+        idx++;
     }
 
     return true;
 };
-console.log(canMakeSubsequence("ab","d"));
+// console.log(canMakeSubsequence("ab","d"));
+// console.log(canMakeSubsequence("om","nm"));
+console.log(canMakeSubsequence("oh","hu"));
 
     </script>
   </body>
