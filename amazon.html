@@ -192,6 +192,74 @@ var canMakeSubsequence = function (str1, str2) {
 // console.log(canMakeSubsequence("om","nm"));
 console.log(canMakeSubsequence("oh","hu"));
 
+
+/**
+ * @param {string[]} username
+ * @param {number[]} timestamp
+ * @param {string[]} website
+ * @return {string[]}
+ */
+var mostVisitedPattern = function (username, timestamp, website) {
+    var len = username.length;
+
+    //compute a map which store evevy t&w of every user;
+    var userMap = {};
+    for (var i = 0; i < len; i++) {
+        var u = username[i];
+        var t = timestamp[i];
+        var w = website[i];
+
+        var arr = userMap[u];
+        if (!arr) {
+            arr = [];
+        }
+        arr.push({
+            t: t, w: w
+        });
+        userMap[u] = arr;
+    }
+
+    var countMap = {};
+    var maxS = "";
+    var maxNum = 0;
+    for (var u in userMap) {
+        var arr = userMap[u];
+
+        //sort by time;
+        arr = arr.sort(function (a, b) {
+            return a.t - b.t;
+        });
+
+        var l = arr.length;
+
+        var ucount = {};
+
+        for (var i = 0; i < l; i++) {
+            for (var j = i + 1; j < l; j++) {
+                for (var k = j + 1; k < l; k++) {
+                    var s = arr[i].w + " " + arr[j].w + " " + arr[k].w;
+                    if (!ucount[s]) {
+                        if (!countMap[s]) {
+                            countMap[s] = 1;
+                        } else {
+                            countMap[s] = countMap[s] + 1;
+                        }
+                        ucount[s] = true;
+                    }
+
+                    //compareTo
+                    if (countMap[s] > maxNum || (countMap[s] == maxNum && maxS.localeCompare(s) > 0)) {
+                        maxNum = countMap[s];
+                        maxS = s;
+                    }
+                }
+            }
+        }
+    }
+
+    return maxS.split(" ");
+};
+
     </script>
   </body>
 </html>
