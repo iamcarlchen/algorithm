@@ -190,7 +190,7 @@ var canMakeSubsequence = function (str1, str2) {
 };
 // console.log(canMakeSubsequence("ab","d"));
 // console.log(canMakeSubsequence("om","nm"));
-console.log(canMakeSubsequence("oh","hu"));
+// console.log(canMakeSubsequence("oh","hu"));
 
 
 /**
@@ -259,6 +259,37 @@ var mostVisitedPattern = function (username, timestamp, website) {
 
     return maxS.split(" ");
 };
+
+
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var getMaxLen = function (nums) {
+    var positive = 0;
+    var negative = 0;
+
+    var ans = 0;
+    for (var i =0;i<nums.length;i++) {
+        var n = nums[i];
+        if (n == 0) {
+            positive = 0;
+            negative = 0;
+        } else if (n > 0) {
+            positive++;
+            negative = negative == 0 ? 0 : negative + 1;
+        } else {
+            var tmp = positive;
+            positive = negative == 0 ? 0 : (negative + 1);
+            negative = tmp + 1;
+        }
+
+        ans = Math.max(ans, positive);
+    }
+
+    return ans;
+};
+console.log(getMaxLen([1,-2,-3,4]));
 
     </script>
   </body>
