@@ -291,6 +291,41 @@ var getMaxLen = function (nums) {
 };
 console.log(getMaxLen([1,-2,-3,4]));
 
+
+/**
+ * @param {character[][]} grid
+ * @return {number}
+ */
+var numIslands = function (grid) {
+    var n = grid.length;
+    var m = grid[0].length;
+
+    var dfs = function (g, i, j) {
+        if (i < 0 || j < 0 || i >= n || j >= m || g[i][j] == '0') {
+            return;
+        }
+
+        grid[i][j] = '0';
+
+        dfs(g, i, j + 1);
+        dfs(g, i, j - 1);
+        dfs(g, i + 1, j);
+        dfs(g, i - 1, j);
+    }
+
+    var count = 0;
+    for (var i = 0; i < n; i++) {
+        for (var j = 0; j < m; j++) {
+            var c = grid[i][j];
+            if (c == '1') {
+                dfs(grid, i, j);
+                count++;
+            }
+        }
+    }
+
+    return count;
+};
     </script>
   </body>
 </html>
