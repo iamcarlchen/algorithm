@@ -85,7 +85,7 @@ var platesBetweenCandles = function (s, queries) {
 // console.log(platesBetweenCandles("|||||*|||*|||*||||*||||**|*|||**|**||**|||*|||*||***||*|*||",[[30,49]]));
 
 
-      /**
+     /**
  * @param {string} s
  * @return {string}
  */
@@ -124,16 +124,31 @@ var reorganizeString = function (s) {
     }
 
     //Compute the max number of map values "n", gap is equal n-1
+    // S-max < max-1
+    // S+1<2 *max
+    // (S+1)/2 < max
     if (rest.length < max - 1) {
         return "";
     }
 
     var s = [];
-    for (var i = 0; i <= max-1; i++) {
-        s[2 * i] = maxc;
+    var idx = 0;
+    while (max > 0) {
+        s[idx] = maxc;
+        idx += 2;
+        max--;
+    }
 
-        if(i<rest.length){
-            s[2 * i + 1] = rest[i];
+    for (var k in map) {
+        if (k != maxc) {
+            while (map[k] > 0) {
+                if (idx >= len) {
+                    idx = 1;
+                }
+                s[idx] = k;
+                idx += 2;
+                map[k] = map[k] - 1;
+            }
         }
     }
 
