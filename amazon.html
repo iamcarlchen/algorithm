@@ -513,6 +513,42 @@ var generateParenthesis = function (n) {
 };
 
 
+/**
+ * @param {number[]} nums
+ * @param {number} x
+ * @return {number}
+ */
+var minCost = function (nums, x) {
+    var len = nums.length;
+
+    var res = [];
+    for (var i = 0; i < len; i++) {
+        // the cost for every operation
+        res[i] = i * x;
+    }
+
+    for (var i = 0; i < len; i++) {
+        // the cost for every operation
+        // res[i] += i * x;
+        var cur = nums[i];
+        for (var k = 0; k < len; k++) {
+            cur = Math.min(cur, nums[(i - k + len) % len]);
+            res[k] += cur;
+        }
+    }
+
+    var min_res = res[0];
+
+    for (var i = 1; i < res.length; i++) {
+        min_res = Math.min(min_res, res[i]);
+    }
+
+    return min_res;
+};
+
+console.log(minCost([20,1,15],5))
+
+
     </script>
   </body>
 </html>
