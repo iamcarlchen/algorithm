@@ -549,6 +549,111 @@ var minCost = function (nums, x) {
 console.log(minCost([20,1,15],5))
 
 
+class Node {
+    constructor() {
+        this.key = null;
+        this.value = null;
+        this.pre = null;
+        this.next = null;
+    }
+}
+
+/**
+ * @param {number} capacity
+ */
+var LRUCache = function (capacity) {
+    this.cache = {};
+
+    this.count = 0;
+    this.capacity = capacity;
+
+    this.head = new Node();
+    this.head.pre = null;
+    this.head.next = this.tail;
+
+    this.tail = new Node();
+    this.tail.next = null;
+    this.tail.pre = this.head;
+};
+
+/** 
+ * @param {number} key
+ * @return {number}
+ */
+LRUCache.prototype.get = function (key) {
+    var node = this.cache[key];
+    if (node == null) {
+        return -1;
+    }
+
+    this.moveToHead(node);
+
+    return node.value;
+};
+
+/** 
+ * @param {number} key 
+ * @param {number} value
+ * @return {void}
+ */
+LRUCache.prototype.put = function (key, value) {
+    var node = this.cache[key];
+    if (!node) {
+        var newNode = new Node();
+        newNode.key = key;
+        newNode.value = value;
+
+        this.cache[key] = newNode;
+        this.addNode(newNode);
+
+        this.count = this.count + 1;
+
+        if (this.count > this.capacity) {
+            var tail = this.popTail();
+            this.cache[tail.key] = null;
+
+            this.count = this.count - 1;
+        }
+
+    } else {
+        // Update value
+        node.value = value;
+        this.moveToHead(node);
+    }
+};
+
+LRUCache.prototype.addNode = function (node) {
+    node.pre = this.head;
+    node.next = this.head.next;
+
+    this.head.next.pre = node;
+    this.head.next = node;
+}
+LRUCache.prototype.removeNode = function (node) {
+    var pre = node.pre;
+    var next = node.next;
+
+    pre.next = next;
+    next.pre = pre;
+}
+LRUCache.prototype.moveToHead = function (node) {
+    this.removeNode(node);
+    this.addNode(node);
+}
+LRUCache.prototype.popTail = function () {
+    var res = this.tail.pre;
+    this.removeNode(res);
+    return res;
+}
+
+/** 
+ * Your LRUCache object will be instantiated and called as such:
+ * var obj = new LRUCache(capacity)
+ * var param_1 = obj.get(key)
+ * obj.put(key,value)
+ */
+
+
     </script>
   </body>
 </html>
