@@ -694,6 +694,40 @@ var makeSubKSumEqual = function (arr, k) {
     return ans;
 };
 
+/**
+ * @param {number} numRows
+ * @return {number[][]}
+ */
+var generate = function (numRows) {
+    var r = [];
+
+    if (numRows == 1) {
+        r[0] = [1];
+        return r;
+    }
+
+    if (numRows == 2) {
+        r[0] = [1];
+        r[1] = [1, 1];
+        return r;
+    }
+
+    for (var i = 0; i < numRows; i++) {
+        var c = [];
+        c[0] = 1;
+        c[i] = 1;
+
+        for (var j = 1; j < i; j++) {
+            c[j] = r[i - 1][j - 1] + r[i - 1][j];
+        }
+
+        r.push(c);
+        // r[i + 2] = c;
+    }
+
+    return r;
+};
+
 
     </script>
   </body>
