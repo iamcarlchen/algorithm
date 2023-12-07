@@ -654,6 +654,47 @@ LRUCache.prototype.popTail = function () {
  */
 
 
+
+/**
+ * @param {number[]} arr
+ * @param {number} k
+ * @return {number}
+ */
+var makeSubKSumEqual = function (arr, k) {
+    var gcd = function (a, b) {
+        while (a != 0) {
+            var tmp = a;
+            a = b % a;
+            b = tmp;
+        }
+        return b;
+    }
+
+    var n = arr.length;
+
+    k = gcd(n,k);
+
+    var ans = 0;
+    for (var i = 0; i < k; i++) {
+        var b = [];
+        for (j = i; j < n; j=j + k) {
+            b.push(arr[j]);
+        }
+
+        b.sort(function (x, y) {
+            return x - y;
+        });
+
+        var mid = b[parseInt(b.length / 2)];
+
+        for (var h = 0; h < b.length; h++) {
+            ans += Math.abs(b[h] - mid);
+        }
+    }
+    return ans;
+};
+
+
     </script>
   </body>
 </html>
