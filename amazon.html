@@ -777,6 +777,43 @@ var spiralOrder = function (matrix) {
 };
 
 
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {number}
+ */
+var subarraySum = function (nums, k) {
+    var len = nums.length;
+
+    var res = [];
+    res[0] = nums[0];
+    for (var i = 1; i < len; i++) {
+        res[i] = res[i - 1] + nums[i];
+    }
+
+    var map = {};
+    var ans = 0;
+
+    for (var i = 0; i < len; i++) {
+        if (res[i] == k) {
+            ans++;
+        }
+
+        if (map[res[i] - k]) {
+            ans += map[res[i] - k];
+        }
+
+        if (map[res[i]]) {
+            map[res[i]] = map[res[i]] + 1;
+        } else {
+            map[res[i]] = 1;
+        }
+    }
+
+    return ans;
+};
+
+
     </script>
   </body>
 </html>
