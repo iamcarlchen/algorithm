@@ -839,6 +839,52 @@ var minMoves = function (target, maxDoubles) {
 };
 
 
+/**
+ * @param {number} n
+ * @param {number} k
+ * @param {number} budget
+ * @param {number[][]} composition
+ * @param {number[]} stock
+ * @param {number[]} cost
+ * @return {number}
+ */
+var compute = function (t, budget, composition, stock, cost) {
+    var minBudget = Number.MAX_VALUE;
+    for (var i = 0; i < composition.length; ++i) {
+        var currCost = 0;
+        for (var j = 0; j < composition[i].length; ++j) {
+            var curr = composition[i][j] * t;
+            if (stock[j] >= curr) {
+                continue;
+            } else {
+                var extra = (curr - stock[j]) * cost[j];
+                currCost += extra;
+            }
+        }
+        minBudget = Math.min(currCost, minBudget);
+    }
+
+    return minBudget <= budget;
+};
+
+var maxNumberOfAlloys = function (n, k, budget, composition, stock, cost) {
+    var low = 0;
+    var height = Number.MAX_VALUE;
+    var ans = 0;
+
+    while (low < height) {
+        var mid = low + (height - low) / 2;
+        if (compute(mid, budget, composition, stock, cost)) {
+            ans = mid;
+            low = mid + 1;
+        } else {
+            height = mid - 1;
+        }
+    }
+
+    return ans;
+};
+
     </script>
   </body>
 </html>
