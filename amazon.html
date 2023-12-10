@@ -887,6 +887,57 @@ var maxNumberOfAlloys = function (n, k, budget, composition, stock, cost) {
 // console.log(maxNumberOfAlloys(3,2,15,[[1,1,1],[1,1,10]],[0,0,0],[1,2,3]));
 console.log(maxNumberOfAlloys(3,2,15,[[1,1,1],[1,1,10]],[0,0,100],[1,2,3]));
 
+
+
+/**
+ * @param {string[]} positive_feedback
+ * @param {string[]} negative_feedback
+ * @param {string[]} report
+ * @param {number[]} student_id
+ * @param {number} k
+ * @return {number[]}
+ */
+var topStudents = function (positive_feedback, negative_feedback, report, student_id, k) {
+    var len = report.length;
+
+    var words = {};
+    for (var i = 0; i < positive_feedback.length; i++) {
+        words[positive_feedback[i]]=3;
+    }
+    for (var i = 0; i < negative_feedback.length; i++) {
+        words[negative_feedback[i]]=-1;
+    }
+
+    var stu = [];
+    for (var i = 0; i < len; i++) {
+        var score = 0;
+
+        var r = report[i];
+        var s = student_id[i];
+
+        var arr = r.split(" ");
+        for (var j = 0; j < arr.length; j++) {
+            if (words[arr[j]]) {
+                score += words[arr[j]];
+            }
+        }
+
+        stu.push([score, s]);
+    }
+
+    stu.sort(function (a, b) {
+        return a[0] == b[0] ?   b[1]-a[1] : b[0]-a[0] ;
+    });
+
+    var result = [];
+    for (var i = 0; i < k; i++) {
+        result.push(stu[i][1]);
+    }
+
+    return result;
+};
+console.log(topStudents(["smart","brilliant","studious"],["not"],["this student is not studious","the student is smart"],[1,2],2));
+
     </script>
   </body>
 </html>
