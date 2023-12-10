@@ -869,11 +869,11 @@ var compute = function (t, budget, composition, stock, cost) {
 
 var maxNumberOfAlloys = function (n, k, budget, composition, stock, cost) {
     var low = 0;
-    var height = Number.MAX_VALUE;
+    var height = 1e9;
     var ans = 0;
 
-    while (low < height) {
-        var mid = low + (height - low) / 2;
+    while (low <= height) {
+        var mid = low + parseInt((height - low) / 2);
         if (compute(mid, budget, composition, stock, cost)) {
             ans = mid;
             low = mid + 1;
@@ -884,6 +884,8 @@ var maxNumberOfAlloys = function (n, k, budget, composition, stock, cost) {
 
     return ans;
 };
+// console.log(maxNumberOfAlloys(3,2,15,[[1,1,1],[1,1,10]],[0,0,0],[1,2,3]));
+console.log(maxNumberOfAlloys(3,2,15,[[1,1,1],[1,1,10]],[0,0,100],[1,2,3]));
 
     </script>
   </body>
