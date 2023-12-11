@@ -938,6 +938,53 @@ var topStudents = function (positive_feedback, negative_feedback, report, studen
 };
 console.log(topStudents(["smart","brilliant","studious"],["not"],["this student is not studious","the student is smart"],[1,2],2));
 
+
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {number}
+ */
+
+var quick = function (nums, k) {
+    var piv = nums[Math.floor(Math.random() * nums.length)];
+
+    var left = [];
+    var mid = [];
+    var right = [];
+
+    for (var i = 0; i < nums.length; i++) {
+        var n = nums[i];
+        if (n > piv) {
+            left.push(n);
+        } else if (n == piv) {
+            mid.push(n);
+        } else {
+            right.push(n);
+        }
+    }
+
+    if (left.length >= k) {
+        return quick(left, k);
+    } else if (left.length + mid.length < k) {
+        return quick(right, k - left.length - mid.length)
+    }
+
+    return piv;
+};
+
+var findKthLargest = function (nums, k) {
+    // nums.sort(function (a, b) {
+    //     return b - a;
+    // });
+
+    // return nums[k - 1];
+
+    return quick(nums, k);
+};
+
+// console.log(findKthLargest([3,2,3,1,2,4,5,5,6],4))
+console.log(findKthLargest([3,2,3,1,2,4,5,5,6],4))
+
     </script>
   </body>
 </html>
