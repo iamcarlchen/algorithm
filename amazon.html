@@ -1020,6 +1020,62 @@ var singleNonDuplicate = function (nums) {
 
 console.log(singleNonDuplicate([1,1,2,2,3]));
 
+
+
+/**
+ * @param {number[]} nums
+ * @param {number} x
+ * @return {number}
+ */
+var minOperations = function (nums, x) {
+    if (nums == null || nums.length == 0) {
+        return -1;
+    }
+    var n = nums.length;
+    if (n == 1) {
+        return nums[0] == x ? 1 : -1;
+    }
+
+    //Compute sum of nums
+    var sum = 0;
+    for (var i = 0; i < n; i++) {
+        sum += nums[i];
+    }
+    if (sum == x) {
+        return nums.length;
+    }
+    if (sum < x) {
+        return -1;
+    }
+
+    //subtract x is the value we find from sub arrays.
+    var targetSum = sum - x;
+
+    var maxOperation = 0;
+    var s = nums[0];
+    var left = 0;
+    for (var right = 0; right < n;) {
+        if (s == targetSum) {
+            maxOperation = Math.max(right - left + 1, maxOperation);
+            right++;
+            s += nums[right];
+            s -= nums[left];
+            left++;
+        } else if (s < targetSum) {
+            right++;
+            s += nums[right];
+        } else if (s > targetSum) {
+            s -= nums[left];
+            left++;
+        }
+    }
+
+    return maxOperation == 0 ? -1 : (n - maxOperation);
+};
+
+console.log(minOperations([3,2,20,1,1,3],10));
+
+
     </script>
   </body>
 </html>
