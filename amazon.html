@@ -1179,6 +1179,44 @@ var findOrder = function (numCourses, prerequisites) {
     return path;
 };
 
+
+
+/**
+ * @param {number[][]} image
+ * @param {number} sr
+ * @param {number} sc
+ * @param {number} color
+ * @return {number[][]}
+ */
+var floodFill = function (image, sr, sc, color) {
+    var ori = image[sr][sc];
+    var dfs = function (r, c) {
+        var t = image[r][c];
+        if (t == ori) {
+            image[r][c] = color;
+
+            if (r >= 1) {
+                dfs(r - 1, c);
+            }
+            if (c >= 1) {
+                dfs(r, c - 1);
+            }
+            if (r < image.length - 1) {
+                dfs(r + 1, c);
+            }
+            if (c < image[0].length - 1) {
+                dfs(r, c + 1);
+            }
+        }
+    };
+    if (ori != color) {
+        dfs(sr, sc);
+    }
+
+    return image;
+};
+
+console.log(floodFill([[1,1,1],[1,1,0],[1,0,1]],1,1,2));
     </script>
   </body>
 </html>
