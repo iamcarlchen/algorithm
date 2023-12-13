@@ -1124,6 +1124,61 @@ var canFinish = function (numCourses, prerequisites) {
 
 console.log(canFinish(2,[[1,0],[0,1]]))
 
+
+/**
+ * @param {number} numCourses
+ * @param {number[][]} prerequisites
+ * @return {number[]}
+ */
+var findOrder = function (numCourses, prerequisites) {
+    var hasStudy = [];
+    var stack = [];
+    var path = [];
+
+    var dfs = function (num) {
+        if (stack[num]) {
+            // In circle
+            return true;
+        }
+        if (hasStudy[num]) {
+            //already study
+            return false;
+        } else {
+            hasStudy[num] = true;
+
+            stack[num] = true;
+
+            for (var i = 0; i < prerequisites.length; i++) {
+                var tmp = prerequisites[i];
+                if (num == tmp[0]) {
+                    var pre = tmp[1];
+                    if (dfs(pre)) {
+                        return true;
+                    }
+                }
+            }
+            path.push(num);
+            stack[num] = false;
+            return false;
+        }
+    }
+
+    var totalPath = [];
+    for (var i = 0; i < numCourses; i++) {
+        // path = [];
+        if (dfs(i)) {
+            return [];
+        }else{
+            // for(var i =0;i<path.length;i++){
+            //     if(i == path[])
+            // }
+            // path = path.reverse();
+        }
+    }
+
+    return path;
+};
+
     </script>
   </body>
 </html>
