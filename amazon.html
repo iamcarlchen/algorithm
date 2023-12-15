@@ -1293,6 +1293,72 @@ StockSpanner.prototype.next = function (price) {
  * var param_1 = obj.next(price)
  */
 
+
+/**
+ * @param {number[]} asteroids
+ * @return {number[]}
+ */
+var asteroidCollision = function (asteroids) {
+    var n = asteroids.length;
+
+    var ans = [];
+    for (var i = 0; i < n; i++) {
+        var a = asteroids[i];
+        if (ans.length == 0) {
+            ans.push(a);
+        } else {
+            var finish = false;
+            while (ans.length - 1 >= 0) {
+                var a2 = ans[ans.length - 1];
+                if (a2 * a < 0) {
+                    if (Math.abs(a2) == Math.abs(a)) {
+                        ans.pop();
+                        finish = true;
+                        break;
+                    } else if (Math.abs(a2) > Math.abs(a)) {
+                        finish = true;
+                        break;
+                    } else if (Math.abs(a2) < Math.abs(a)) {
+                        ans.pop();
+                    }
+                } else {
+                    ans.push(a);
+                    finish = true;
+                    break;
+                }
+            }
+            if (!finish) {
+                ans.push(a);
+            }
+        }
+    }
+
+    return ans;
+};
+console.log(asteroidCollision([-2,-1,1,2]));
+
+/**
+ * @param {number[][]} intervals
+ * @return {number[][]}
+ */
+var merge = function (intervals) {
+    intervals.sort(function (a, b) {
+        return a[0] - b[0];
+    });
+
+    var ans = [];
+    for (var i = 0; i < intervals.length; i++) {
+        var interval = intervals[i];
+        if (ans.length == 0 || ans[ans.length - 1][1] < interval[0]) {
+            ans.push(interval);
+        } else {
+            ans[ans.length - 1][1] = Math.max(ans[ans.length - 1][1], interval[1]);
+        }
+    }
+
+    return ans;
+};
+
     </script>
   </body>
 </html>
