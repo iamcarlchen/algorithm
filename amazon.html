@@ -1217,6 +1217,49 @@ var floodFill = function (image, sr, sc, color) {
 };
 
 console.log(floodFill([[1,1,1],[1,1,0],[1,0,1]],1,1,2));
+
+/**
+ * @param {string[]} strs
+ * @return {string[][]}
+ */
+var groupAnagrams = function (strs) {
+    var n = strs.length;
+
+    var map = {};
+
+    for (var i = 0; i < n; i++) {
+        var s = strs[i];
+
+        var arr = [];
+        var i2 = s.length;
+        for (var j = 0; j < i2; j++) {
+            var c = s.charAt(j).charCodeAt(0);
+            if (arr[c]) {
+                arr[c] = arr[c] + 1
+            } else {
+                arr[c] = 1;
+            }
+        }
+
+        var k = arr.join('#');
+
+        var tmp = map[k];
+        if (!tmp) {
+            tmp = [];
+        }
+        tmp.push(s);
+        map[k] = tmp;
+    }
+
+    var ans = [];
+    for (var key in map) {
+        var v = map[key];
+        ans.push(v);
+    }
+
+    return ans;
+};
+
     </script>
   </body>
 </html>
