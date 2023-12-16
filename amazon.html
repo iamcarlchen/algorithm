@@ -1359,6 +1359,39 @@ var merge = function (intervals) {
     return ans;
 };
 
+
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var longestConsecutive = function (nums) {
+    var hash = {};
+
+    for (var i = 0; i < nums.length; i++) {
+        hash[nums[i]] = true;
+    }
+
+    var ans = 0;
+    for (var i = 0; i < nums.length; i++) {
+        var n = nums[i];
+
+        if (!hash[n - 1]) {
+            var a = n;
+            var distance = 1;
+
+            while (hash[a + 1]) {
+                distance++;
+                a++;
+            }
+
+            ans = Math.max(ans, distance);
+        }
+    }
+
+    return ans;
+};
+
+
     </script>
   </body>
 </html>
