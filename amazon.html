@@ -1493,6 +1493,40 @@ var findDuplicates3 = function (nums) {
 
     return ans;
 }
+
+
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {number}
+ */
+var maxResult = function (nums, k) {
+    let n = nums.length;
+    let dp = new Array(n).fill(0);
+    dp[0] = nums[0];
+
+    // 用于维护dp窗口的最大值
+    let deque = [0]; // 存的是索引
+
+    for (let i = 1; i < n; i++) {
+        // 窗口移动，确保deque里只保留当前位置i向前k个的索引
+        while (deque.length > 0 && deque[0] < i - k) {
+            deque.shift();
+        }
+        // dp[i] 的值是deque首个索引对应的dp值加上nums[i]
+        dp[i] = dp[deque[0]] + nums[i];
+        // 维护deque，保证其首个元素是当前最大dp值的索引
+        while (deque.length > 0 && dp[i] >= dp[deque[deque.length - 1]]) {
+            deque.pop();
+        }
+        deque.push(i);
+    }
+
+    return dp[n - 1];
+};
+
+
+console.log(maxResult([1,-5,-20,4,-1,3,-6,-3],2))
     </script>
   </body>
 </html>
