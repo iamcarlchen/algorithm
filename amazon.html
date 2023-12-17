@@ -1459,6 +1459,40 @@ function reverse(nums, start, end) {
 
 console.log(nextPermutation([3,2,1]));
 
+
+/**
+ * @param {number[]} nums
+ * @return {number[]}
+ */
+var findDuplicates2 = function (nums) {
+    const duplicates = [];
+    for (let i = 0; i < nums.length; i++) {
+        const index = Math.abs(nums[i]) - 1;
+        if (nums[index] < 0) {
+            duplicates.push(index + 1);
+        } else {
+            nums[index] = -nums[index];
+        }
+    }
+    // 恢复原数组，如果需要的话
+    for (let i = 0; i < nums.length; i++) {
+        nums[i] = Math.abs(nums[i]);
+    }
+    return duplicates;
+};
+var findDuplicates3 = function (nums) {
+    var seen = {};
+    var ans = [];
+    for (var i = 0; i < nums.length; i++) {
+        if (seen[nums[i]]) {
+            ans.push(nums[i]);
+        } else {
+            seen[nums[i]] = true;
+        }
+    }
+
+    return ans;
+}
     </script>
   </body>
 </html>
